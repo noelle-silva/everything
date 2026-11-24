@@ -16,10 +16,10 @@ Fast Window v5 registered app for packaged voidtools Everything search.
 ## Build
 
 ```powershell
-npm --prefix apps/everything run vendor:check
-npm --prefix apps/everything run build:ui
-npm --prefix apps/everything run build:app
-npm --prefix apps/everything run build:app:dev
+npm run vendor:check
+npm run build:ui
+npm run build:app
+npm run build:app:dev
 ```
 
 ## Registration
@@ -27,21 +27,21 @@ npm --prefix apps/everything run build:app:dev
 Register the staged app entry executable from:
 
 ```txt
-apps/everything/dist-app/v5-windows/package/everything.exe
+dist-app/v5-windows/package/everything.exe
 ```
 
 For dev registration use:
 
 ```txt
-apps/everything/dist-app/v5-windows-dev/package/everything.exe
+dist-app/v5-windows-dev/package/everything.exe
 ```
 
 ## Verification
 
 ```powershell
-npm --prefix apps/everything run vendor:check
-npm --prefix apps/everything run smoke:runtime
-cd apps/everything/backend-go; go test ./...
-npm --prefix apps/everything exec -- tsc --noEmit
-cargo check --manifest-path apps/everything/src-tauri/Cargo.toml
+npm run vendor:check
+npm run smoke:runtime
+cd backend-go; go test ./...
+npm exec -- tsc --noEmit
+cargo check --manifest-path src-tauri/Cargo.toml
 ```
