@@ -16,10 +16,10 @@ Fast Window v5 registered app for packaged voidtools Everything search.
 ## Build
 
 ```powershell
-pnpm --dir apps/everything vendor:check
-pnpm --dir apps/everything build:ui
-pnpm --dir apps/everything build:app
-pnpm --dir apps/everything build:app:dev
+npm --prefix apps/everything run vendor:check
+npm --prefix apps/everything run build:ui
+npm --prefix apps/everything run build:app
+npm --prefix apps/everything run build:app:dev
 ```
 
 ## Registration
@@ -39,9 +39,9 @@ apps/everything/dist-app/v5-windows-dev/package/everything.exe
 ## Verification
 
 ```powershell
-pnpm --dir apps/everything vendor:check
-pnpm --dir apps/everything smoke:runtime
+npm --prefix apps/everything run vendor:check
+npm --prefix apps/everything run smoke:runtime
 cd apps/everything/backend-go; go test ./...
-pnpm --dir apps/everything exec tsc --noEmit
+npm --prefix apps/everything exec -- tsc --noEmit
 cargo check --manifest-path apps/everything/src-tauri/Cargo.toml
 ```
