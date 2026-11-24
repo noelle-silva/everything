@@ -18,6 +18,9 @@ pub(crate) fn default_data_dir() -> Result<PathBuf, String> {
 }
 
 pub(crate) fn resolve_data_dir(_app: &tauri::AppHandle) -> Result<PathBuf, String> {
+    if let Some(overridden) = crate::instance_identity::resolve_data_dir_override()? {
+        return Ok(overridden.join("data"));
+    }
     default_data_dir()
 }
 
@@ -25,6 +28,18 @@ pub(crate) fn data_dir_status(
     _app: &tauri::AppHandle,
     runtime_error: Option<String>,
 ) -> Result<DataDirStatus, String> {
+    if let Some(overridden) = crate::instance_identity::resolve_data_dir_override()? {
+        let data_dir = overridden.join("data");
+        let writable_result = ensure_writable_dir(&data_dir);
+        let writable_error = writable_result.as_ref().err().cloned();
+        let display = data_dir.display().to_string();
+        return Ok(DataDirStatus {
+            data_dir: display.clone(),
+            default_data_dir: display,
+            writable: writable_result.is_ok() && runtime_error.is_none(),
+            error: runtime_error.or(writable_error),
+        });
+    }
     let default_data_dir = default_data_dir()?;
     let data_dir = default_data_dir.clone();
     let writable_result = ensure_writable_dir(&data_dir);
