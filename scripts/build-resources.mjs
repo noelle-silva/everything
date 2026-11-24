@@ -23,5 +23,5 @@ const targetDir = process.env.CARGO_TARGET_DIR
 
 await copyAssets(path.join(targetDir, 'debug'))
 await copyAssets(path.join(targetDir, 'resources'))
-await copyVendor(path.join(appDir, 'src-tauri', 'target', 'debug'))
-await copyVendor(path.join(appDir, 'src-tauri', 'target', 'resources'))
+await copyVendor(path.join(targetDir, 'debug'))
+await copyVendor(path.join(targetDir, 'resources'))
